@@ -2,7 +2,49 @@
     "folders":
     [
         {
+			"file_exclude_patterns":
+			[
+//				"*.sublime*",
+//				"*.log",
+				"*.sln",
+				"*.uproject",
+				"*.opendb"
+			],
+			"folder_exclude_patterns":
+			[
+				"BattleTank/.vs",
+				"BattleTank/Binaries",
+				"BattleTank/Config",
+				"BattleTank/Content",
+				"BattleTank/Intermediate",
+				"BattleTank/Saved",
+				"BattleTank/Source"
+			],
             "path": "/"
-        }
+        },
+
+// This version shows the "BattleTank" folder on it's own in the folder list
+//         {
+// 			"file_exclude_patterns":
+// 			[
+// //				"*.sublime*",
+// //				"*.log",
+// 				"*.sln",
+// 				"*.uproject",
+// 				"*.opendb"
+// 			],
+// 			"folder_exclude_patterns":
+// 			[
+// 				".vs",
+// 				"Binaries",
+// 				"Config",
+// 				"Content",
+// 				"Intermediate",
+// 				"Saved",
+// 				"Source"
+// 			],
+//             "path": "BattleTank"
+//         },
+
     ]
 }
