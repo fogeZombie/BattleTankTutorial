@@ -4,6 +4,9 @@
 
 #include "Tank_Pawn.h"
 
+#include "GameFramework/Actor.h"
+#include "Engine/World.h"
+
 #include "CoreMinimal.h"
 #include "AIController.h"
 #include "TankAIController.generated.h"
@@ -16,10 +19,9 @@ class BATTLETANK_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
 	
-
-public:
-	ATank_Pawn* GetControlledTank();
-
 private:
 	virtual void BeginPlay() override;
+
+	ATank_Pawn* GetControlledTank() const;
+	ATank_Pawn* GetTargetTank() const;
 };

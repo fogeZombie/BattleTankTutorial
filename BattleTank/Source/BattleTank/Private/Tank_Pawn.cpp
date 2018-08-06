@@ -2,7 +2,6 @@
 
 #include "Tank_Pawn.h"
 
-
 // Sets default values
 ATank_Pawn::ATank_Pawn()
 {
