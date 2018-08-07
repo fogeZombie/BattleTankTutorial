@@ -36,16 +36,11 @@ private:
 	ATank_Pawn* ControlledTank = nullptr;
 
 	UPROPERTY(EditAnywhere)
-	float AimDistance = 10000.0f;
+	float AimDistance = 1000000.0f; // 10km default
 
 	UPROPERTY(EditAnywhere)
 	float CrosshairLocationX = 0.5f;
 
 	UPROPERTY(EditAnywhere)
 	float CrosshairLocationY = 0.33f;
-
-	FVector PlayerPosition;
-	FRotator PlayerRotation;
-	FVector AimDistanceEnd;
-
 };

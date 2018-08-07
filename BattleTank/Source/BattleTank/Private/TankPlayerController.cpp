@@ -60,13 +60,12 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation)
 	DeprojectScreenPositionToWorld(ViewportSizeX * CrosshairLocationX, ViewportSizeY * CrosshairLocationY, WorldLocation, WorldDirection);
 
 	// figure out the endpoint based on AimDistance
-	AimDistanceEnd = WorldLocation + (WorldDirection * AimDistance);
+	FVector AimDistanceEnd = WorldLocation + (WorldDirection * AimDistance);
 	DrawDebugLine(GetWorld(), WorldLocation, AimDistanceEnd, FColor::Blue, false, -1.0f, 0, 1.0f);
 
 	// set up and run the trace, looking for ECC_WorldStatic objects
 	FHitResult Hit;
-	FCollisionQueryParams TraceParameters(FName(TEXT("")), false, GetOwner());
-	GetWorld()->LineTraceSingleByObjectType(Hit, WorldLocation, AimDistanceEnd, FCollisionObjectQueryParams(ECollisionChannel::ECC_WorldStatic), TraceParameters);
+	GetWorld()->LineTraceSingleByChannel(Hit, WorldLocation, AimDistanceEnd, ECollisionChannel::ECC_Visibility);
 
 	// log what was hit by the physics body trace
 	AActor* ActorHit = Hit.GetActor();
