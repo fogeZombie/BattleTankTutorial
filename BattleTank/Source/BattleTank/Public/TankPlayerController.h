@@ -28,6 +28,7 @@ protected:
 	ATank_Pawn* GetControlledTank() const;
 	void AimTowardCrosshair();
 	bool GetSightRayHitLocation(FVector& OutHitLocation);
+	void FireMain();
 
 public: 
 	virtual void Tick(float DeltaTime) override;

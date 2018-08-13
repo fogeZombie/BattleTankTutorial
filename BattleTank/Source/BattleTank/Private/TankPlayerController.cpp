@@ -20,7 +20,16 @@ void ATankPlayerController::BeginPlay() {
 		UE_LOG(LogTemp, Warning, TEXT("Controlled Tank: %s"), *(GetControlledTank()->GetName()));
 		ControlledTank = Tank_Holder;
 	}
-	
+
+	// bind FireMain to input
+	// find/grab attached input component
+	InputComponent = FindComponentByClass<UInputComponent>();
+	if (InputComponent == nullptr) {
+		UE_LOG(LogTemp, Error, TEXT("Missing Input Component on: %s"), *(GetOwner()->GetName()));
+	}
+	else {
+		InputComponent->BindAction("FireMain", IE_Pressed, this, &ATankPlayerController::FireMain);
+	}
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
@@ -43,7 +52,7 @@ void ATankPlayerController::AimTowardCrosshair()
 
 	FVector HitLocation;
 	if (GetSightRayHitLocation(HitLocation) == true) {
-		UE_LOG(LogTemp, Warning, TEXT("HitLocation X:%f, Y:%f, Z:%f"), HitLocation.X, HitLocation.Y, HitLocation.Z);
+		ControlledTank->AimAt(HitLocation);
 	}
 }
 
@@ -67,10 +76,10 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation)
 	FHitResult Hit;
 	GetWorld()->LineTraceSingleByChannel(Hit, WorldLocation, AimDistanceEnd, ECollisionChannel::ECC_Visibility);
 
-	// log what was hit by the physics body trace
+	// check if something was hit on the trace, if so populate the location
 	AActor* ActorHit = Hit.GetActor();
 	if (ActorHit != nullptr) {
-		UE_LOG(LogTemp, Warning, TEXT("Actor hit: %s"), *(ActorHit->GetName()));
+		//UE_LOG(LogTemp, Warning, TEXT("Actor hit: %s"), *(ActorHit->GetName()));
 		OutHitLocation = Hit.Location;
 		return true;
 	}
@@ -79,4 +88,7 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation)
 	return false;
 }
 
-
+void ATankPlayerController::FireMain()
+{
+	ControlledTank->FireMain();
+}
