@@ -12,7 +12,7 @@ void ATankAIController::BeginPlay()
 	Super::BeginPlay();
 
 	// grab the controlled tank and double-check it.
-	ControlledTank = GetControlledTank();
+	ControlledTank = Cast<ATank_Pawn>(GetPawn());
 	if (ControlledTank == nullptr) {
 		UE_LOG(LogTemp, Error, TEXT("AI: %s is not controlling a tank at BeginPlay."), *(GetName()));
 	}
@@ -21,7 +21,7 @@ void ATankAIController::BeginPlay()
 	}
 
 	// find the player's tank
-	TargetTank = GetTargetTank();
+	TargetTank = Cast<ATank_Pawn>(GetWorld()->GetFirstPlayerController()->GetPawn());
 	if (TargetTank == nullptr) {
 		UE_LOG(LogTemp, Error, TEXT("AI: %s could not locate player tank"), *(GetName()));
 	}
@@ -38,27 +38,10 @@ void ATankAIController::Tick(float DeltaTime) {
 		return;
 	}
 
-	// if there is a target tank, aim at it
+	// if there is a target tank, aim/fire at it
 	if (TargetTank != nullptr) {
-		ControlledTank->AimAt(GetTargetTankLocation());
+		ControlledTank->AimAt(TargetTank->GetActorLocation());
+		ControlledTank->FireMainWeapon();
 	}
 }
 
-ATank_Pawn* ATankAIController::GetControlledTank() const {
-	return Cast<ATank_Pawn>(GetPawn());
-}
-
-ATank_Pawn* ATankAIController::GetTargetTank() const {
-	return Cast<ATank_Pawn>(GetWorld()->GetFirstPlayerController()->GetPawn());
-}
-
-FVector ATankAIController::GetTargetTankLocation() const
-{
-	// bail if there is no target
-	if (TargetTank == nullptr) {
-		UE_LOG(LogTemp, Error, TEXT("AI: %s does not have TargetTank."), *(GetName()));
-		return FVector(0);
-	}
-
-	return TargetTank->GetActorLocation();
-}

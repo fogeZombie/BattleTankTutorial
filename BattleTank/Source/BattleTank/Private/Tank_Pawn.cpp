@@ -57,10 +57,17 @@ void ATank_Pawn::FireMainWeapon()
 		return;
 	}
 
-	FVector SpawnLocation = Barrel->GetSocketLocation(FName("ProjectileLaunchLocation"));
-	FRotator SpawnRotation = Barrel->GetSocketRotation(FName("ProjectileLaunchLocation"));
-	ATankProjectile* Projectile = GetWorld()->SpawnActor<ATankProjectile>(ProjectileBlueprint, SpawnLocation, SpawnRotation);
+	// check if reload is complete
+	float CurrentPlatformTime = GetWorld()->GetTimeSeconds();
+	bool isReloaded = (CurrentPlatformTime - LastFireTime) > ReloadTimeInSeconds;
 
-	Projectile->LaunchProjectile(ProjectileVelocity);
+	if (isReloaded == true) {
+		FVector SpawnLocation = Barrel->GetSocketLocation(FName("ProjectileLaunchLocation"));
+		FRotator SpawnRotation = Barrel->GetSocketRotation(FName("ProjectileLaunchLocation"));
+		ATankProjectile* Projectile = GetWorld()->SpawnActor<ATankProjectile>(ProjectileBlueprint, SpawnLocation, SpawnRotation);
+
+		Projectile->LaunchProjectile(ProjectileVelocity);
+		LastFireTime = CurrentPlatformTime;
+	}
 }
 

@@ -50,13 +50,20 @@ public:
 
 // fields
 public:
+	// Specifies the ATankProjectile (or subclass) to use.
 	UPROPERTY(EditAnywhere, Category = Setup)
 	TSubclassOf<ATankProjectile> ProjectileBlueprint = nullptr;
 
-	UPROPERTY(EditAnywhere, Category = Setup)
+	// Defines the projectile velocity, which determines how far the tank can fire.
+	UPROPERTY(EditAnywhere, Category = Firing)
 	float ProjectileVelocity = 4000.0f;
+
+	// Defines the amount of time, in seconds, that it takes the tank to "reload" and be able to fire again.
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	float ReloadTimeInSeconds = 3.0f;
 
 protected:
 	UTankAimingComponent* TankAimingComponent = nullptr;
 	UTankBarrel* Barrel = nullptr;
+	float LastFireTime = ReloadTimeInSeconds * -1;
 };

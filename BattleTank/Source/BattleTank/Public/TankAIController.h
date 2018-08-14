@@ -25,10 +25,6 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
-	ATank_Pawn* GetControlledTank() const;
-	ATank_Pawn* GetTargetTank() const;
-	FVector GetTargetTankLocation() const;
-
 public:
 	virtual void Tick(float DeltaTime) override;
 
