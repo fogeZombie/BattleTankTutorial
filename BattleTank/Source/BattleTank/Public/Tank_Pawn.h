@@ -3,9 +3,10 @@
 #pragma once
 
 #include "TankAimingComponent.h"
-
 #include "TankBarrel.h"
 #include "TankTurret.h"
+
+#include "Engine/World.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
@@ -43,7 +44,8 @@ public:
 	void AimAt(FVector Location);
 
 	// Fire main weapon
-	void FireMain();
+	UFUNCTION(BlueprintCallable, Category = Input)
+	void FireMainWeapon();
 
 // fields
 public:

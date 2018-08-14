@@ -51,8 +51,6 @@ void UTankAimingComponent::AimAt(FVector Location, float Velocity)
 		UE_LOG(LogTemp, Error, TEXT("TAC: %s has not set a barrel reference."), *(GetOwner()->GetName()));
 	}
 
-	//UE_LOG(LogTemp, Warning, TEXT("TAC: %s is aiming AT: %s FROM: %s"), *(GetOwner()->GetName()), *Location.ToString(), *(Barrel->GetComponentLocation().ToString()));
-
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("ProjectileLaunchLocation"));
 	bool SolutionFound = UGameplayStatics::SuggestProjectileVelocity(this, OutLaunchVelocity, StartLocation, Location, Velocity, false, 0, 0, ESuggestProjVelocityTraceOption::DoNotTrace);
@@ -79,22 +77,3 @@ void UTankAimingComponent::MoveTurretAndBarrel(FVector AimDirection)
 	FRotator BarrelDeltaRotator = AimAsRotator - BarrelRotator;
 	Barrel->Elevate(BarrelDeltaRotator.Pitch);
 }
-
-void UTankAimingComponent::FireMain()
-{
-	// bail if there is no turret
-	if (Turret == nullptr) {
-		UE_LOG(LogTemp, Error, TEXT("TAC: %s's aiming component has no turret."), *(GetOwner()->GetName()));
-		return;
-	}
-
-	// bail if there is no barrel
-	if (Barrel == nullptr) {
-		UE_LOG(LogTemp, Error, TEXT("TAC: %s's aiming component has no barrel."), *(GetOwner()->GetName()));
-		return;
-	}
-
-	UE_LOG(LogTemp, Error, TEXT("TAC: %s FIRING at: %s"), *(GetOwner()->GetName()), *(AimDirection.ToString()));
-	//UE_LOG(LogTemp, Warning, TEXT("TAC: SuggestedVelocity: %s"), *(OutVector.ToString()));
-}
-

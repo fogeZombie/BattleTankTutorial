@@ -47,8 +47,9 @@ void ATank_Pawn::AimAt(FVector Location)
 	TankAimingComponent->AimAt(Location, ProjectileVelocity);
 }
 
-void ATank_Pawn::FireMain()
+void ATank_Pawn::FireMainWeapon()
 {
-	TankAimingComponent->FireMain();
+	float CurrentTime = GetWorld()->GetTimeSeconds();
+	UE_LOG(LogTemp, Error, TEXT("%.2f - TAC: %s FIRING"), CurrentTime, *(GetName()));
 }
 

@@ -20,16 +20,6 @@ void ATankPlayerController::BeginPlay() {
 		UE_LOG(LogTemp, Warning, TEXT("Controlled Tank: %s"), *(GetControlledTank()->GetName()));
 		ControlledTank = Tank_Holder;
 	}
-
-	// bind FireMain to input
-	// find/grab attached input component
-	InputComponent = FindComponentByClass<UInputComponent>();
-	if (InputComponent == nullptr) {
-		UE_LOG(LogTemp, Error, TEXT("Missing Input Component on: %s"), *(GetOwner()->GetName()));
-	}
-	else {
-		InputComponent->BindAction("FireMain", IE_Pressed, this, &ATankPlayerController::FireMain);
-	}
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
@@ -86,9 +76,4 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation)
 
 	// else
 	return false;
-}
-
-void ATankPlayerController::FireMain()
-{
-	ControlledTank->FireMain();
 }
