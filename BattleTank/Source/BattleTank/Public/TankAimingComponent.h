@@ -3,6 +3,7 @@
 #pragma once
 
 #include "TankBarrel.h"
+#include "TankTurret.h"
 
 #include "Components/StaticMeshComponent.h"
 #include "Engine/World.h"
@@ -24,6 +25,7 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
+	void MoveTurretAndBarrel(FVector AimDirection);
 
 public:	
 	// Called every frame
@@ -31,9 +33,11 @@ public:
 	void AimAt(FVector Location, float Velocity);
 	void FireMain();
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
+	void SetTurretReference(UTankTurret* TurretToSet);
 
 // fields
 private:
 	UTankBarrel* Barrel = nullptr;
+	UTankTurret* Turret = nullptr;
 	FVector AimDirection = FVector(0);
 };

@@ -34,8 +34,18 @@ void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 	Barrel = BarrelToSet;
 }
 
+void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet)
+{
+	Turret = TurretToSet;
+}
+
 void UTankAimingComponent::AimAt(FVector Location, float Velocity)
 {
+	// bail if there isn't a turret
+	if (Turret == nullptr) {
+		UE_LOG(LogTemp, Error, TEXT("TAC: %s has not set a turret reference."), *(GetOwner()->GetName()));
+	}
+
 	// bail if there isn't a barrel
 	if (Barrel == nullptr) {
 		UE_LOG(LogTemp, Error, TEXT("TAC: %s has not set a barrel reference."), *(GetOwner()->GetName()));
@@ -49,19 +59,35 @@ void UTankAimingComponent::AimAt(FVector Location, float Velocity)
 
 	if (SolutionFound == true) {
 		AimDirection = OutLaunchVelocity.GetSafeNormal();
-		UE_LOG(LogTemp, Warning, TEXT("%.2f TAC: %s's aiming at: %s"), GetWorld()->GetTimeSeconds(), *(GetOwner()->GetName()), *(AimDirection.ToString()));
-
-		// aiming the barrel
-		FRotator BarrelRotator = Barrel->GetForwardVector().Rotation();
-		FRotator AimAsRotator = AimDirection.Rotation();
-		FRotator DeltaRotator = AimAsRotator - BarrelRotator;
-
-		Barrel->Elevate(DeltaRotator.Pitch);
+		MoveTurretAndBarrel(AimDirection);
 	}
+}
+
+void UTankAimingComponent::MoveTurretAndBarrel(FVector AimDirection)
+{
+	// grab a rotator for the normalized velocity, for use in figuring out elevation and rotation deltas
+	FRotator AimAsRotator = AimDirection.Rotation();
+
+	// aiming the turret
+	FRotator TurretRotator = Turret->GetForwardVector().Rotation();
+	FRotator TurretDeltaRotator = AimAsRotator - TurretRotator;
+	Turret->Rotate(TurretDeltaRotator.Yaw);
+	//UE_LOG(LogTemp, Warning, TEXT("%.2f TAC: %s's yaw: %s"), GetWorld()->GetTimeSeconds(), *(GetOwner()->GetName()), *(TurretDeltaRotator.ToString()));
+
+	// aiming the barrel
+	FRotator BarrelRotator = Barrel->GetForwardVector().Rotation();
+	FRotator BarrelDeltaRotator = AimAsRotator - BarrelRotator;
+	Barrel->Elevate(BarrelDeltaRotator.Pitch);
 }
 
 void UTankAimingComponent::FireMain()
 {
+	// bail if there is no turret
+	if (Turret == nullptr) {
+		UE_LOG(LogTemp, Error, TEXT("TAC: %s's aiming component has no turret."), *(GetOwner()->GetName()));
+		return;
+	}
+
 	// bail if there is no barrel
 	if (Barrel == nullptr) {
 		UE_LOG(LogTemp, Error, TEXT("TAC: %s's aiming component has no barrel."), *(GetOwner()->GetName()));

@@ -24,7 +24,7 @@ public:
 private:
 	// Elevation movement speed in degrees per second.
 	UPROPERTY(EditAnywhere, Category = Movement)
-	float Elevation_MaxDegreesPerSecond = 4.0f;
+	float Elevation_MaxDegreesPerSecond = 8.0f;
 
 	// Minimum allowed elevation in degrees.
 	UPROPERTY(EditAnywhere, Category = Movement)

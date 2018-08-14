@@ -5,6 +5,7 @@
 #include "TankAimingComponent.h"
 
 #include "TankBarrel.h"
+#include "TankTurret.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
@@ -34,6 +35,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
 
+	// Set the barrel reference used by the aiming component
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void SetTurretReference(UTankTurret* TurretToSet);
+
 	// Set the aiming location of the tank with a FVector location
 	void AimAt(FVector Location);
 
@@ -43,7 +48,7 @@ public:
 // fields
 public:
 	UPROPERTY(EditAnywhere, Category = Firing)
-	float ProjectileVelocity = 50000.0f;
+	float ProjectileVelocity = 4000.0f;
 
 protected:
 	UTankAimingComponent* TankAimingComponent = nullptr;

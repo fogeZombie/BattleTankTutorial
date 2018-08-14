@@ -37,6 +37,11 @@ void ATank_Pawn::SetBarrelReference(UTankBarrel* BarrelToSet)
 	TankAimingComponent->SetBarrelReference(BarrelToSet);
 }
 
+void ATank_Pawn::SetTurretReference(UTankTurret* TurretToSet)
+{
+	TankAimingComponent->SetTurretReference(TurretToSet);
+}
+
 void ATank_Pawn::AimAt(FVector Location)
 {
 	TankAimingComponent->AimAt(Location, ProjectileVelocity);
