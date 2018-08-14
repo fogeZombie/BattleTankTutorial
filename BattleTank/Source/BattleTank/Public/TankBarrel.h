@@ -12,7 +12,7 @@
 * Holds barrel's properties and elevate method.
 * Used exclusively as a tank component.
 */
-UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent), hidecategories = ("Physics", "Collision", "Lighting", "Rendering"))
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent), hidecategories = ("Lighting", "Rendering"))
 class BATTLETANK_API UTankBarrel : public UStaticMeshComponent
 {
 	GENERATED_BODY()

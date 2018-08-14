@@ -44,11 +44,13 @@ void UTankAimingComponent::AimAt(FVector Location, float Velocity)
 	// bail if there isn't a turret
 	if (Turret == nullptr) {
 		UE_LOG(LogTemp, Error, TEXT("TAC: %s has not set a turret reference."), *(GetOwner()->GetName()));
+		return;
 	}
 
 	// bail if there isn't a barrel
 	if (Barrel == nullptr) {
 		UE_LOG(LogTemp, Error, TEXT("TAC: %s has not set a barrel reference."), *(GetOwner()->GetName()));
+		return;
 	}
 
 	FVector OutLaunchVelocity;

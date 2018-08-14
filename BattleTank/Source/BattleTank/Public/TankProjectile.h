@@ -2,6 +2,9 @@
 
 #pragma once
 
+#include "Engine/World.h"
+#include "GameFramework/ProjectileMovementComponent.h"
+
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "TankProjectile.generated.h"
@@ -22,7 +25,9 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	void LaunchProjectile(float Speed);
 
-	
-	
+// fields
+private:
+	UProjectileMovementComponent* ProjectileMovement = nullptr;	
 };

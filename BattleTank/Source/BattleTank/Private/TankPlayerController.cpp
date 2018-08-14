@@ -60,7 +60,7 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation)
 
 	// figure out the endpoint based on AimDistance
 	FVector AimDistanceEnd = WorldLocation + (WorldDirection * AimDistance);
-	DrawDebugLine(GetWorld(), WorldLocation, AimDistanceEnd, FColor::Blue, false, -1.0f, 0, 1.0f);
+	//DrawDebugLine(GetWorld(), WorldLocation, AimDistanceEnd, FColor::Blue, false, -1.0f, 0, 1.0f); // Debug visualization
 
 	// set up and run the trace, looking for ECC_WorldStatic objects
 	FHitResult Hit;

@@ -32,8 +32,10 @@ void ATank_Pawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 
 }
 
+// Set local barrel reference and pass on to the TankAimingComponent
 void ATank_Pawn::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
+	Barrel = BarrelToSet;
 	TankAimingComponent->SetBarrelReference(BarrelToSet);
 }
 
@@ -49,7 +51,16 @@ void ATank_Pawn::AimAt(FVector Location)
 
 void ATank_Pawn::FireMainWeapon()
 {
-	float CurrentTime = GetWorld()->GetTimeSeconds();
-	UE_LOG(LogTemp, Error, TEXT("%.2f - TAC: %s FIRING"), CurrentTime, *(GetName()));
+	// bail if there isn't a barrel
+	if (Barrel == nullptr) {
+		UE_LOG(LogTemp, Error, TEXT("TAC: %s has not set a barrel reference."), *(GetOwner()->GetName()));
+		return;
+	}
+
+	FVector SpawnLocation = Barrel->GetSocketLocation(FName("ProjectileLaunchLocation"));
+	FRotator SpawnRotation = Barrel->GetSocketRotation(FName("ProjectileLaunchLocation"));
+	ATankProjectile* Projectile = GetWorld()->SpawnActor<ATankProjectile>(ProjectileBlueprint, SpawnLocation, SpawnRotation);
+
+	Projectile->LaunchProjectile(ProjectileVelocity);
 }
 

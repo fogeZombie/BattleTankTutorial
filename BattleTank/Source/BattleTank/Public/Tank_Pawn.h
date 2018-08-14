@@ -5,6 +5,7 @@
 #include "TankAimingComponent.h"
 #include "TankBarrel.h"
 #include "TankTurret.h"
+#include "TankProjectile.h"
 
 #include "Engine/World.h"
 
@@ -49,9 +50,13 @@ public:
 
 // fields
 public:
-	UPROPERTY(EditAnywhere, Category = Firing)
+	UPROPERTY(EditAnywhere, Category = Setup)
+	TSubclassOf<ATankProjectile> ProjectileBlueprint = nullptr;
+
+	UPROPERTY(EditAnywhere, Category = Setup)
 	float ProjectileVelocity = 4000.0f;
 
 protected:
 	UTankAimingComponent* TankAimingComponent = nullptr;
+	UTankBarrel* Barrel = nullptr;
 };
