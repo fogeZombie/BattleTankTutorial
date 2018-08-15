@@ -53,7 +53,13 @@ void ATank_Pawn::FireMainWeapon()
 {
 	// bail if there isn't a barrel
 	if (Barrel == nullptr) {
-		UE_LOG(LogTemp, Error, TEXT("TAC: %s has not set a barrel reference."), *(GetOwner()->GetName()));
+		UE_LOG(LogTemp, Error, TEXT("TAC: %s has not set a barrel reference."), *(GetName()));
+		return;
+	}
+
+	// bail if there isn't a projectils
+	if (ProjectileBlueprint == nullptr) {
+		UE_LOG(LogTemp, Error, TEXT("TAC: %s has not set a projectile reference."), *(GetName()));
 		return;
 	}
 

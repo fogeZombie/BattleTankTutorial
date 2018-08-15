@@ -6,6 +6,7 @@
 #include "TankBarrel.h"
 #include "TankTurret.h"
 #include "TankProjectile.h"
+#include "TankTrack.h"
 
 #include "Engine/World.h"
 
@@ -13,6 +14,9 @@
 #include "GameFramework/Pawn.h"
 #include "Tank_Pawn.generated.h"
 
+/**
+* A custom tank, composed from other custom tank bits.
+*/
 UCLASS()
 class BATTLETANK_API ATank_Pawn : public APawn
 {
@@ -64,6 +68,10 @@ public:
 
 protected:
 	UTankAimingComponent* TankAimingComponent = nullptr;
+	
 	UTankBarrel* Barrel = nullptr;
 	float LastFireTime = ReloadTimeInSeconds * -1;
+
+	UTankTrack* Track_Left = nullptr;
+	UTankTrack* Track_Right = nullptr;
 };

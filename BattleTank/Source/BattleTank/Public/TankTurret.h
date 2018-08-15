@@ -12,7 +12,7 @@
 * Holds tank turret properties and rotate method.
 * Exclusively used as a tank component.
 */
-UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent), hidecategories = ("Physics", "Collision", "Lighting", "Rendering"))
+UCLASS(ClassGroup = (Tank), meta = (BlueprintSpawnableComponent), hidecategories = ("Physics", "Collision", "Lighting", "Rendering"))
 class BATTLETANK_API UTankTurret : public UStaticMeshComponent
 {
 	GENERATED_BODY()
