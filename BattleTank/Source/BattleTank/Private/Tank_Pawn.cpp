@@ -9,6 +9,7 @@ ATank_Pawn::ATank_Pawn()
 	PrimaryActorTick.bCanEverTick = true;
 
 	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>("Aiming Component");
+	//TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>("Movement Component");
 }
 
 // Called when the game starts or when spawned

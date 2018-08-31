@@ -31,4 +31,7 @@ public:
 private:
 	ATank_Pawn* ControlledTank = nullptr;
 	ATank_Pawn* TargetTank = nullptr;
+
+	UPROPERTY(EditAnywhere, Category = PositioningParameters)
+	float Target_MinDistance = 3000.0f;
 };

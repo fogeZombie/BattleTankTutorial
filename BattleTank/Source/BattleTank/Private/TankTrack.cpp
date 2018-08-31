@@ -4,21 +4,29 @@
 
 void UTankTrack::ApplyForce_Forward(float Force)
 {
-	FVector DesiredForce = GetForwardVector() * Force * Movement_ForceForward_Max;
-	UE_LOG(LogTemp, Warning, TEXT("%s applying FORWARD force: %.2f - %s"), *(GetOwner()->GetName()), Force, *(DesiredForce.ToCompactString()));
+	FVector DesiredForce; // Calculated force to apply to the "track"
 	FVector ForceLocation = GetComponentLocation();
+
+	// handle forward
+	if (Force > 0) {
+		DesiredForce = GetForwardVector() * Force * Movement_ForceForward_Max;
+	}
+	// handle backward
+	else {
+		DesiredForce = GetForwardVector() * Force * Movement_ForceBackward_Max;
+	}
+
 	UPrimitiveComponent* TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
-	
 	TankRoot->AddForceAtLocation(DesiredForce, ForceLocation);
 }
 
-void UTankTrack::ApplyForce_Backward(float Force)
+// For "hover"-style tank movement
+void UTankTrack::ApplyForce_Right(float Force)
 {
-	FVector DesiredForce = GetForwardVector() * ((Force * Movement_ForceForward_Max) * -1);
-	UE_LOG(LogTemp, Warning, TEXT("%s applying BACKWARD force: %.2f - %s"), *(GetOwner()->GetName()), Force, *(DesiredForce.ToCompactString()));
-
 	FVector ForceLocation = GetComponentLocation();
-	UPrimitiveComponent* TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
+	FVector DesiredForce = GetRightVector() * Force * Movement_ForceForward_Max;
 
+	UPrimitiveComponent* TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
 	TankRoot->AddForceAtLocation(DesiredForce, ForceLocation);
 }
+

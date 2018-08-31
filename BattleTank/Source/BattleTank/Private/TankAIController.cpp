@@ -38,8 +38,10 @@ void ATankAIController::Tick(float DeltaTime) {
 		return;
 	}
 
-	// if there is a target tank, aim/fire at it
+	// if there is a target tank move towards it and attempt to aim/fire at it's current position
 	if (TargetTank != nullptr) {
+		MoveToActor(TargetTank, Target_MinDistance);
+
 		ControlledTank->AimAt(TargetTank->GetActorLocation());
 		ControlledTank->FireMainWeapon();
 	}

@@ -15,20 +15,23 @@ class BATTLETANK_API UTankTrack : public UStaticMeshComponent
 	GENERATED_BODY()
 		
 public:
-	UFUNCTION(BlueprintCallable, Category = Input)
+	UFUNCTION(BlueprintCallable, Category = "Input")
 	void ApplyForce_Forward(float Force);
 
-
-	UFUNCTION(BlueprintCallable, Category = Input)
-	void ApplyForce_Backward(float Force);
+	UFUNCTION(BlueprintCallable, Category = "Input")
+	void ApplyForce_Right(float Force);
 
 // fields
 private:
 	// Force to apply to the track, in newtons.
-	UPROPERTY(EditDefaultsOnly, Category = Movement)
+	UPROPERTY(EditDefaultsOnly, Category = "Movement")
 	float Movement_ForceForward_Max = 4000000.0f;
 
 	// Force to apply to the track, in newtons.
-	UPROPERTY(EditDefaultsOnly, Category = Movement)
+	UPROPERTY(EditDefaultsOnly, Category = "Movement")
 	float Movement_ForceBackward_Max = 2000000.0f;
+
+	// Force to apply to the track, in newtons.
+	UPROPERTY(EditDefaultsOnly, Category = "Movement")
+	float Movement_ForceRight_Max = 2000000.0f;
 };

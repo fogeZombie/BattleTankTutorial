@@ -7,6 +7,7 @@
 #include "TankTurret.h"
 #include "TankProjectile.h"
 #include "TankTrack.h"
+#include "TankMovementComponent.h"
 
 #include "Engine/World.h"
 
@@ -38,32 +39,32 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	// Set the barrel reference used by the aiming component
-	UFUNCTION(BlueprintCallable, Category = Setup)
+	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
 
 	// Set the barrel reference used by the aiming component
-	UFUNCTION(BlueprintCallable, Category = Setup)
+	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void SetTurretReference(UTankTurret* TurretToSet);
 
 	// Set the aiming location of the tank with a FVector location
 	void AimAt(FVector Location);
 
 	// Fire main weapon
-	UFUNCTION(BlueprintCallable, Category = Input)
+	UFUNCTION(BlueprintCallable, Category = "Input")
 	void FireMainWeapon();
 
 // fields
 public:
 	// Specifies the ATankProjectile (or subclass) to use.
-	UPROPERTY(EditAnywhere, Category = Setup)
+	UPROPERTY(EditAnywhere, Category = "Setup")
 	TSubclassOf<ATankProjectile> ProjectileBlueprint = nullptr;
 
 	// Defines the projectile velocity, which determines how far the tank can fire.
-	UPROPERTY(EditAnywhere, Category = Firing)
+	UPROPERTY(EditAnywhere, Category = "Firing")
 	float ProjectileVelocity = 4000.0f;
 
 	// Defines the amount of time, in seconds, that it takes the tank to "reload" and be able to fire again.
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float ReloadTimeInSeconds = 3.0f;
 
 protected:
@@ -74,4 +75,7 @@ protected:
 
 	UTankTrack* Track_Left = nullptr;
 	UTankTrack* Track_Right = nullptr;
+
+	//UPROPERTY(BlueprintReadOnly)
+	//UTankMovementComponent* TankMovementComponent = nullptr;
 };
